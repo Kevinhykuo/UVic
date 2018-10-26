@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>A1Q7.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #f8f8f8; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(249,238,152); }
+.s1 { color: rgb(248,248,248); }
+.s2 { color: rgb(143,157,106); }
+.s3 { color: rgb(207,106,76); }
+.s4 { color: rgb(205,168,105); }
+.s5 { color: rgb(204,120,50); }
+</style>
+</head>
+<BODY BGCOLOR="#141414">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+A1Q7.py</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<a name="l1"><span class="ln">1    </span></a><span class="s0">import </span><span class="s1">sys 
+<a name="l2"><span class="ln">2    </span></a></span><span class="s0">import </span><span class="s1">math 
+<a name="l3"><span class="ln">3    </span></a> 
+<a name="l4"><span class="ln">4    </span></a></span><span class="s2">''' 
+<a name="l5"><span class="ln">5    </span></a>Approximate single variable integral using Riemann sum. 
+<a name="l6"><span class="ln">6    </span></a>Integral of f(x) = x^2 - Cos(x) from x=0 to 2 
+<a name="l7"><span class="ln">7    </span></a>Intervals of 10, 100, 1000 
+<a name="l8"><span class="ln">8    </span></a>f = x**2 - math.acos(x) 
+<a name="l9"><span class="ln">9    </span></a>'''</span><span class="s1"> 
+<a name="l10"><span class="ln">10   </span></a> 
+<a name="l11"><span class="ln">11   </span></a>print(</span><span class="s2">&quot;PHYS 326 - Assignment 1 - Q7&quot;</span><span class="s1">) 
+<a name="l12"><span class="ln">12   </span></a>print(</span><span class="s2">&quot;Approximate single variable integral using Riemann sum.&quot; &quot;</span><span class="s3">\n</span><span class="s2">&quot;</span><span class="s1"> 
+<a name="l13"><span class="ln">13   </span></a>        </span><span class="s2">&quot;Evaluate f(x) = x^2 - Cos(x) from x=0 to 2&quot; &quot;</span><span class="s3">\n</span><span class="s2">&quot;</span><span class="s1"> 
+<a name="l14"><span class="ln">14   </span></a>        </span><span class="s2">&quot;Intervals of 10, 100, 1000&quot;</span><span class="s1">) 
+<a name="l15"><span class="ln">15   </span></a> 
+<a name="l16"><span class="ln">16   </span></a></span><span class="s0">def </span><span class="s1">f(x)</span><span class="s4">:</span><span class="s1"> 
+<a name="l17"><span class="ln">17   </span></a>    </span><span class="s0">return </span><span class="s1">x</span><span class="s4">**</span><span class="s3">2</span><span class="s4">-</span><span class="s1">math.acos(x) 
+<a name="l18"><span class="ln">18   </span></a> 
+<a name="l19"><span class="ln">19   </span></a>x1 </span><span class="s4">= </span><span class="s3">0</span><span class="s1"> 
+<a name="l20"><span class="ln">20   </span></a>x2 </span><span class="s4">= </span><span class="s3">2</span><span class="s1"> 
+<a name="l21"><span class="ln">21   </span></a>n1 </span><span class="s4">= </span><span class="s3">10</span><span class="s1"> 
+<a name="l22"><span class="ln">22   </span></a>n2 </span><span class="s4">= </span><span class="s3">100</span><span class="s1"> 
+<a name="l23"><span class="ln">23   </span></a>n3 </span><span class="s4">= </span><span class="s3">1000</span><span class="s1"> 
+<a name="l24"><span class="ln">24   </span></a> 
+<a name="l25"><span class="ln">25   </span></a>Dx1 </span><span class="s4">= </span><span class="s1">(x2</span><span class="s4">-</span><span class="s1">x1)</span><span class="s4">/</span><span class="s1">n1 
+<a name="l26"><span class="ln">26   </span></a>Dx2 </span><span class="s4">= </span><span class="s1">(x2</span><span class="s4">-</span><span class="s1">x1)</span><span class="s4">/</span><span class="s1">n2 
+<a name="l27"><span class="ln">27   </span></a>Dx3 </span><span class="s4">= </span><span class="s1">(x2</span><span class="s4">-</span><span class="s1">x1)</span><span class="s4">/</span><span class="s1">n3 
+<a name="l28"><span class="ln">28   </span></a> 
+<a name="l29"><span class="ln">29   </span></a>i </span><span class="s4">= </span><span class="s3">0</span><span class="s1"> 
+<a name="l30"><span class="ln">30   </span></a>j </span><span class="s4">= </span><span class="s3">0</span><span class="s1"> 
+<a name="l31"><span class="ln">31   </span></a>k </span><span class="s4">= </span><span class="s3">0</span><span class="s1"> 
+<a name="l32"><span class="ln">32   </span></a>A1 </span><span class="s4">= </span><span class="s3">0</span><span class="s1"> 
+<a name="l33"><span class="ln">33   </span></a>A2 </span><span class="s4">= </span><span class="s3">0</span><span class="s1"> 
+<a name="l34"><span class="ln">34   </span></a>A3 </span><span class="s4">= </span><span class="s3">0</span><span class="s1"> 
+<a name="l35"><span class="ln">35   </span></a> 
+<a name="l36"><span class="ln">36   </span></a></span><span class="s0">while </span><span class="s1">(i </span><span class="s4">&lt;= </span><span class="s1">(n1 </span><span class="s4">+ </span><span class="s3">1</span><span class="s1">))</span><span class="s4">:</span><span class="s1"> 
+<a name="l37"><span class="ln">37   </span></a>    A1 </span><span class="s4">= </span><span class="s1">f(x2) </span><span class="s4">* </span><span class="s1">Dx1 </span><span class="s4">+ </span><span class="s1">A1 
+<a name="l38"><span class="ln">38   </span></a>    i </span><span class="s4">= </span><span class="s1">i </span><span class="s4">+ </span><span class="s3">1</span><span class="s1"> 
+<a name="l39"><span class="ln">39   </span></a> 
+<a name="l40"><span class="ln">40   </span></a></span><span class="s0">while </span><span class="s1">(j </span><span class="s4">&lt;= </span><span class="s1">(n2 </span><span class="s4">+ </span><span class="s3">1</span><span class="s1">))</span><span class="s4">:</span><span class="s1"> 
+<a name="l41"><span class="ln">41   </span></a>    A2 </span><span class="s4">= </span><span class="s1">f(x2) </span><span class="s4">* </span><span class="s1">Dx2 </span><span class="s4">+ </span><span class="s1">A2 
+<a name="l42"><span class="ln">42   </span></a>    j </span><span class="s4">= </span><span class="s1">j </span><span class="s4">+ </span><span class="s3">1</span><span class="s1"> 
+<a name="l43"><span class="ln">43   </span></a> 
+<a name="l44"><span class="ln">44   </span></a></span><span class="s0">while </span><span class="s1">(k </span><span class="s4">&lt;= </span><span class="s1">(n3 </span><span class="s4">+ </span><span class="s3">1</span><span class="s1">))</span><span class="s4">:</span><span class="s1"> 
+<a name="l45"><span class="ln">45   </span></a>    A3 </span><span class="s4">= </span><span class="s1">f(x2) </span><span class="s4">* </span><span class="s1">Dx3 </span><span class="s4">+ </span><span class="s1">A3 
+<a name="l46"><span class="ln">46   </span></a>    k </span><span class="s4">= </span><span class="s1">k </span><span class="s4">+ </span><span class="s3">1</span><span class="s1"> 
+<a name="l47"><span class="ln">47   </span></a> 
+<a name="l48"><span class="ln">48   </span></a>print(</span><span class="s2">&quot;Area approximated using Riemann sum (n=10) in the specified region is&quot;</span><span class="s5">, </span><span class="s1">A1) 
+<a name="l49"><span class="ln">49   </span></a>print(</span><span class="s2">&quot;Area approximated using Riemann sum (n=100) in the specified region is&quot;</span><span class="s5">, </span><span class="s1">A2) 
+<a name="l50"><span class="ln">50   </span></a>print(</span><span class="s2">&quot;Area approximated using Riemann sum (n=1000) in the specified region is&quot;</span><span class="s5">, </span><span class="s1">A3)</span></pre>
+</body>
+</html>
