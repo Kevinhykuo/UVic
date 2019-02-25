@@ -1,0 +1,804 @@
+
+
+
+
+    
+\documentclass[11pt]{article}
+    
+    \usepackage{parskip}
+    \setcounter{secnumdepth}{0} %Suppress section numbers
+    \usepackage[breakable]{tcolorbox}
+    \tcbset{nobeforeafter}
+    \usepackage{needspace}
+    \usepackage{minted}
+    \usemintedstyle{jupyter_python}
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    \let\Oldtex\TeX     % provide compatibility with nbconvert <= 5.3.1
+    \let\Oldlatex\LaTeX % pre-included in nbconvert > 5.3.1 so redundant
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Assignment 3-Copy1}
+    
+    
+    
+% Pygments definitions
+    
+    \makeatletter
+    \newcommand*\@iflatexlater{\@ifl@t@r\fmtversion}
+    \@iflatexlater{2016/03/01}{
+	    \newcommand{\wordboundary}{4095}}{
+	    \newcommand{\wordboundary}{255}}
+    \makeatother
+
+    \newif\ifcode
+    \codefalse
+    \definecolor{Grey}{rgb}{0.40,0.40,0.40}
+    %If using XeLaTeX, use magic to not highlight . operators with purple.
+    \ifdefined\XeTeXcharclass
+    \XeTeXinterchartokenstate = 1
+    \newXeTeXintercharclass \mycharclassGrey
+    \XeTeXcharclass `. \mycharclassGrey
+    \XeTeXinterchartoks 0 \mycharclassGrey   = {\bgroup\ifcode\color{Grey}\else\fi}
+
+    \XeTeXinterchartoks \wordboundary \mycharclassGrey = {\bgroup\ifcode\color{Grey}\else\fi}
+
+    \XeTeXinterchartoks \mycharclassGrey 0   = {\egroup}
+    \XeTeXinterchartoks \mycharclassGrey \wordboundary = {\egroup}
+    \fi %end magical operator highlighting
+    %End Reconfigured Pygments
+    
+   
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % needed definitions
+    \newif\ifleftmargins
+    \newlength{\promptlength}
+
+    % cell style settings
+        \leftmarginsfalse
+
+    
+    % prompt
+    \newcommand{\prompt}[3]{
+        \needspace{1.1cm}
+        \settowidth{\promptlength}{ #1 [#3] }
+        \ifleftmargins\hspace{-\promptlength}\hspace{-5pt}\fi
+        {\color{#2}#1 [#3]:}
+        \ifleftmargins\vspace{-2.7ex}\fi
+    }
+    
+    
+    % environments
+    \newenvironment{OutVerbatim}{\VerbatimEnvironment%
+        \begin{tcolorbox}[breakable, boxrule=.5pt, size=fbox, pad at break*=1mm, opacityfill=0]
+            \begin{Verbatim}
+            }{
+            \end{Verbatim}
+        \end{tcolorbox}
+    }
+    
+    %Updated MathJax Compatibility (if future behaviour of the notebook changes this may be removed)
+    \renewcommand{\TeX}{\ifmmode \textrm{\Oldtex} \else \textbackslash TeX \fi}
+    \renewcommand{\LaTeX}{\ifmmode \Oldlatex \else \textbackslash LaTeX \fi}
+    
+    % Header Adjustments
+    \renewcommand{\paragraph}{\textbf}
+    \renewcommand{\subparagraph}[1]{\textit{\textbf{#1}}}
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    \geometry{verbose,tmargin=.5in,bmargin=.7in,lmargin=.5in,rmargin=.5in}
+    
+
+    \begin{document}
+    
+    
+    
+    
+    
+
+    
+    \hypertarget{assignment-3}{%
+\section{Assignment 3}\label{assignment-3}}
+
+    
+\prompt{In}{incolor}{1}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+import numpy as np 
+import matplotlib as mp
+import matplotlib.pyplot as plt
+
+from numpy import sin, pi
+from scipy.optimize import curve_fit 
+from textwrap import wrap
+
+%matplotlib inline
+%config InlineBackend.figure_format = 'pdf'
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \hypertarget{question-1-polynomial-fit}{%
+\subsection{Question 1: Polynomial
+fit}\label{question-1-polynomial-fit}}
+
+    We want to find a fourth degree polynomial fit that goes through the
+points \((-2, 0)\), \((-1, -1)\), \((0, 0)\), \((1, 1)\), and
+\((2, 0)\). To do this, we set up a system of linear equations:
+
+\[\vec{y} = X \vec{a}\]
+
+\[\text{Where} \left\{ \begin{array}{ll}
+            \vec{y}  & \text{is the vector of the "y" values} \\
+            \vec{X}  & \text{is the matrix of the "x" values} \\
+            \vec{a}  & \text{is the vector of the coefficients of the polynomial}
+            \end{array} \right.\]
+
+Our polynomial will have the form:
+
+\[y = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + a_4 x^4\]
+
+Substituting the given values into the equation gives us:
+
+\[\begin{bmatrix}
+    0\\
+    -1\\
+    0\\
+    1\\
+    0
+\end{bmatrix}
+=
+\begin{bmatrix}
+    1 & -2 & 4 & -8  & 16 \\
+    1 & -1 & 1 & -1 & 1 \\
+    1 & 0 & 0 & 0 & 0 \\
+    1 & 1 & 1 & 1 & 1 \\
+    1 & 2 & 4 & 8  & 16 
+\end{bmatrix}
+\begin{bmatrix}
+    a_0 \\
+    a_1 \\
+    a_2 \\
+    a_3 \\
+    a_4
+\end{bmatrix}\]
+
+    To find \(\vec{a}\) we first find the inverse of \(X\), then
+\(\vec{a} = X^{-1} \vec{y}\)
+
+    
+\prompt{In}{incolor}{2}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+P = np.array([[-2, 0], [-1, -1], [0, 0], [1, 1], [2,0]])
+x_space = np.arange(-2, 2, 0.01)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{3}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Generate matrix "X"
+def X(p=P):
+    X = np.zeros((p.shape[0], p.shape[0]))
+    for i in range(0, p.shape[0]):
+        X[i] += p[:,0] ** i
+    return X.T
+
+# Invert "X"
+def inv_X(p=P):
+    inv_x = np.linalg.inv(X(p))
+    return inv_x
+
+# Find vector "a"
+def vec_a(p=P):
+    a =  inv_X(p) @ p[:,1]
+    return a
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{4}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Get our vector "a"
+a = vec_a()
+
+# Equation for "y"
+def y(X, A=a):
+    y = 0
+    for i in range(0, np.size(A)):
+        y += a[i] * X**i
+    return y
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{5}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Plot it out: 
+# ============
+
+fig, ax = plt.subplots(1, 1, figsize=(10, 6))
+
+ax.scatter(P[:,0], P[:,1], c='black', label="Data points", zorder=5)
+ax.plot(x_space, sin(pi*x_space / 2), label=r"$y=\sin \left(\frac{2 x}{\pi}\right)$")
+ax.plot(x_space, y(x_space), label=r"$y$ = %5.3f + %5.3f $x$ + %5.3f $x^2$ + %5.3f $x^3$ + %5.3f $x^4$" % tuple(a))
+ax.set_ylabel(r"$y$", rotation=0, fontsize=14)
+ax.set_xlabel(r"$x$", fontsize=14)
+ax.set_title(r"Polynomial fit", fontsize=16)
+
+plt.legend()
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question-2-cubic-spline-fit}{%
+\subsection{Question 2: Cubic spline
+fit}\label{question-2-cubic-spline-fit}}
+
+    We want to find a cubic spline \(S(x)\) with boundary conditions
+\(S'(-2)=S'(2)\) and \(S''(-2)=S''(2)\).
+
+As we have five points, we need to find four equations for the functions
+between these points. This gives us the equation of the cubic spline:
+
+\[\left\{ \begin{array}{ll}
+            S_0(x_0) = a_0 + b_0 x_0 + c_0 x_0^2 + d_0 x_0^3 \\
+            S_0(x_1) = a_0 + b_0 x_1 + c_0 x_1^2 + d_0 x_1^3 \\
+            S_1(x_1) = a_1 + b_1 x_1 + c_1 x_1^2 + d_1 x_1^3 \\
+            S_1(x_2) = a_1 + b_1 x_2 + c_1 x_2^2 + d_1 x_2^3 \\
+            S_2(x_2) = a_2 + b_2 x_2 + c_2 x_2^2 + d_2 x_2^3 \\
+            S_2(x_3) = a_2 + b_2 x_3 + c_2 x_3^2 + d_2 x_3^3 \\
+            S_3(x_3) = a_3 + b_3 x_3 + c_3 x_3^2 + d_3 x_3^3
+            \end{array} \right.\]
+
+    We want the spline to have continuous first derivatives:
+
+\[\left\{ \begin{array}{ll}
+            S'_0(x_1) = b_0 + 2 c_0 x_1 + 3 d_0 x_1^2 = b_1 + 2 c_1 x_1 + 3 d_1 x_1^2 = S'_1(x_1)\\
+            S'_1(x_2) = b_1 + 2 c_1 x_2 + 3 d_1 x_2^2 = b_2 + 2 c_2 x_2 + 3 d_2 x_2^2 = S'_2(x_2)\\
+            S'_2(x_3) = b_2 + 2 c_2 x_3 + 3 d_2 x_3^2 = b_3 + 2 c_3 x_3 + 3 d_3 x_3^2 = S'_3(x_3)
+            \end{array} \right.\]
+
+The boundary conditions require that:
+
+\[S'_0(x_0) = b_0 + 2 c_0 x_0 + 3 d_0 x_0^2 = b_3 + 2 c_3 x_4 + 3 d_3 x_4^2 = S'_3(x_4)\]
+
+    For a natural spline, we want the second order derivatives to be
+continuous and to be zero at the ends:
+
+\[\left\{ \begin{array}{ll}
+            S''_0(x_1) = 2 c_0 + 6 d_0 x_1 = 2 c_1 + 6 d_1 x_1 = S''_1(x_1)\\
+            S''_1(x_2) = 2 c_1 + 6 d_1 x_2 = 2 c_2 + 6 d_2 x_2 = S''_2(x_2)\\
+            S''_2(x_3) = 2 c_2 + 6 d_2 x_3 = 2 c_3 + 6 d_3 x_3 = S''_3(x_3)\\
+            S_0''(x_0) = 2 c_0 + 6 d_0 x_0 = 2 c_3 + 6 d_3 x_4 = S_3''(x_4) = 0
+            \end{array} \right.\]
+
+    Substituting the values into our equations, we have 13 equations to
+solve for 12 unknowns:
+
+\[\left\{ \begin{array}{ll}
+            S_0(-2) = 0 = a_0 - 2 b_0 + 4 c_0 - 8 d_0  \\
+            S_0(-1) = -1 = a_0 - b_0 + c_0 - d_0 \\
+            S_1(-1) = -1 = a_1 - b_1 + c_1 - d_1 \\
+            S_1(0) = 0 =a_1 \\
+            S_2(0) = 0 =a_2 \\
+            S_2(1) = 1 =  a_2 + b_2 + c_2 + d_2 \\
+            S_3(1) = 1 =  a_3 + b_3 + c_3 + d_3 \\
+            S_3(2) = 0 = a_3 + 2 b_3 + 4 c_3 + 8 d_3 \\
+            S'_0(-1) = S'_1(-1) = b_0 - 2 c_0 + 3 d_0 = b_1 - 2 c_1 + 3 d_1 \\
+            S'_1(0) = S'_2(0) = b_1 = b_2\\
+            S'_2(1) = S'_3(1) = b_2 + 2 c_2 + 3 d_2 = b_3 + 2 c_3 + 3 d_3 \\
+            S'_0(-2) = S'_3(2) = b_0 - 4 c_0 + 12 d_0 = b_3 + 4 c_3 + 12 d_3 \\
+            S''_0(-1) = S''_1(-1) = 2 c_0 - 6 d_0 = 2 c_1 - 6 d_1 \\
+            S''_1(0) = S''_2(0) = 2 c_1 = 2 c_2 \\
+            S''_2(1) = S''_3(1) = 2 c_2 + 6 d_2 = 2 c_3 + 6 d_3 \\
+            S_0''(-2) = S_3''(2) = 2 c_0 - 12 d_0 = 2 c_3 + 12 d_3 = 0
+            \end{array} \right.\]
+
+    We can see straight away that \(a_1 = a_2 = 0\),
+\(c_0 - 6 d_0 = c_3 + 6 d_3 = 0\), and \(c_2 + 3 d_2 = c_3 + 3 d_3\),
+therefore, substitute these into the expressions:
+
+\[\left\{ \begin{array}{ll}
+            a_0 - 2 b_0 + 4 c_0 - 8 d_0 = 0\\
+            a_0 - b_0 + c_0 - d_0 = -1\\
+            - b_1 + c_1 - d_1 = -1\\
+            a_1 = 0\\
+            a_2 = 0\\
+            b_2 + c_2 + d_2 = 1\\
+            a_3 + b_3 + c_3 + d_3 = 1\\
+            a_3 + 2 b_3 + 4 c_3 + 8 d_3 = 0\\
+            b_0 - 2 c_0 + 3 d_0 = b_1 - 2 c_1 + 3 d_1 \\
+            b_1 = b_2\\
+            b_2 + c_2 = b_3 + c_3 \\
+            b_0 - 2 c_0 = b_3 + 2 c_3 \\
+            c_0 - 3 d_0 = c_1 - 3 d_1 \\
+            c_1 = c_2 \\
+            c_2 + 3 d_2 = c_3 + 3 d_3 \\
+            c_0 - 6 d_0 = c_3 + 6 d_3 = 0
+            \end{array} \right.\]
+
+    The coefficients can be calculated by: \[\vec{a} = C^{-1} \vec{b}\]
+
+    
+\prompt{In}{incolor}{6}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Create an array "C"
+C = np.array([
+    [1, -2,  4, -8,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+    [1, -1,  1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0],
+    [0,  0,  0,  0,  0, -1,  1, -1,  0,  0,  0,  0,  0,  0,  0,  0],
+    [0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  0,  0,  0,  0], 
+    [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1], 
+    [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  2,  4,  8],  
+    [0,  0,  0,  0,  0,  1,  0,  0,  0, -1,  0,  0,  0,  0,  0,  0], 
+    [0,  0,  0,  0,  0,  0,  1,  0,  0,  0, -1,  0,  0,  0,  0,  0],  
+    [0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  0,  0, -1, -1,  0], 
+    [0,  1, -2,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -2,  0],
+    [0,  0,  1, -3,  0,  0, -1,  3,  0,  0,  0,  0,  0,  0,  0,  0], 
+    [0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  3,  0,  0, -1, -3], 
+    [0,  1, -2,  3,  0, -1,  2, -3,  0,  0,  0,  0,  0,  0,  0,  0], 
+    [0,  0,  1, -6,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -6], 
+    [0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0], 
+    [0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0]])
+
+# Create an array of vector "b"
+vec_b = np.array([
+    [0],
+    [-1],
+    [-1],
+    [1], 
+    [1], 
+    [0],  
+    [0], 
+    [0],  
+    [0], 
+    [0],
+    [0], 
+    [0], 
+    [0], 
+    [0], 
+    [0], 
+    [0]])
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{7}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Find the inverse of "C"
+C_inv = np.linalg.inv(C)
+
+# Take the product of "C" and "b"
+vec_a = C_inv @ vec_b
+print(r"a = ", vec_a)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a =  [[ 1.00000000e+00]
+ [ 4.50000000e+00]
+ [ 3.00000000e+00]
+ [ 5.00000000e-01]
+ [ 0.00000000e+00]
+ [ 1.50000000e+00]
+ [ 2.22044605e-16]
+ [-5.00000000e-01]
+ [ 0.00000000e+00]
+ [ 1.50000000e+00]
+ [ 2.22044605e-16]
+ [-5.00000000e-01]
+ [-1.00000000e+00]
+ [ 4.50000000e+00]
+ [-3.00000000e+00]
+ [ 5.00000000e-01]]
+
+    \end{Verbatim}
+
+    This is our coefficients for the cubic spline equations.
+
+    \hypertarget{a-b-equations-and-derivatives-of-the-cubic-spline-equations}{%
+\subsubsection{a) \& b): Equations and derivatives of the cubic spline
+equations}\label{a-b-equations-and-derivatives-of-the-cubic-spline-equations}}
+
+Cubic spline equations:
+
+\[\left\{ \begin{array}{ll}
+            S_0(x) = 1 + 4.5 x + 3 x^2 + 0.5 x^3 \\
+            S_1(x) = 1.5 x + 2.22 \times 10^{-16} x^2 - 0.5 x^3 \\
+            S_2(x) = 1.5 x + 2.22 \times 10^{-16} x^2 - 0.5 x^3 \\
+            S_3(x) = -1 + 4.5 x + 3 x^2 + 0.5 x^3
+            \end{array} \right.\]
+
+    Derivatives of the cubic spline equations:
+
+\[\left\{ \begin{array}{ll}
+            S_0(x) = 4.5 + 6 x + 1.5 x^2 \\
+            S_1(x) = 1.5 + 4.44 \times 10^{-16} x - 1.5 x^2 \\
+            S_2(x) = 1.5 + 4.44 \times 10^{-16} x - 1.5 x^2 \\
+            S_3(x) = 4.5 + 6 x + 1.5 x^2
+            \end{array} \right.\]
+
+    \hypertarget{c-plot-it-out}{%
+\subsubsection{c) Plot it out:}\label{c-plot-it-out}}
+
+    
+\prompt{In}{incolor}{8}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+x_space0 = np.arange(-2, -1, 0.01)
+x_space1 = np.arange(-1, 0, 0.01)
+x_space2 = np.arange(0, 1, 0.01)
+x_space3 = np.arange(1, 2, 0.01)
+
+def S(A=vec_a, x0=x_space0, x1=x_space1, x2=x_space2, x3=x_space3):
+    s0 = A[0] + A[1]*x0 + A[2]*x0**2 + A[3]*x0**3
+    s1 = A[4] + A[5]*x1 + A[6]*x1**2 + A[7]*x1**3
+    s2 = A[8] + A[9]*x2 + A[10]*x2**2 + A[11]*x2**3
+    s3 = A[12] + A[13]*x3 + A[14]*x3**2 + A[15]*x3**3
+    return s0, s1, s2, s3
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{9}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Plot it out:
+# ============
+S0, S1, S2, S3 = S()
+
+fig, ax2 = plt.subplots(1, 1, figsize=(10, 6))
+
+ax2.scatter(P[:,0], P[:,1], c='black', label="Data points", zorder=5)
+ax2.plot(x_space0, S0, label=r"$S_0(x) = {0:.2f} + {1:.2f} x + {2:.2f} x^2 + {3:.2f} x^3$"
+         .format(vec_b[0][0], vec_b[1][0], vec_b[2][0], vec_b[3][0]), linewidth=2)
+ax2.plot(x_space1, S1, label=r"$S_1(x) = {0} + {1} x + {2:.4e} x^2 + {3:.2f} x^3$"
+         .format(vec_b[4][0], vec_b[5][0], vec_b[6][0], vec_b[7][0]), linewidth=2)
+ax2.plot(x_space2, S2, label=r"$S_2(x) = {0} + {1} x + {2:.4e} x^2 + {3:.2f} x^3$"
+         .format(vec_b[8][0], vec_b[9][0], vec_b[10][0], vec_b[11][0]), linewidth=2)
+ax2.plot(x_space3, S3, label=r"$S_3(x) = {0:.2f} + {1:.2f} x + {2:.2f} x^2 + {3:.2f} x^3$"
+         .format(vec_b[12][0], vec_b[13][0], vec_b[14][0], vec_b[15][0]), linewidth=2)
+ax2.plot(x_space, sin(pi*x_space / 2), label=r"$y=\sin \left(\frac{2 x}{\pi}\right)$", linewidth=4, zorder=0)
+
+ax2.set_ylabel(r"$y$", rotation=0, fontsize=14)
+ax2.set_xlabel(r"$x$", fontsize=14)
+ax2.set_title(r"Cubic spline fit", fontsize=16)
+
+plt.ylim(-1.75, 1.25)
+plt.legend()
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{question-3}{%
+\subsection{Question 3}\label{question-3}}
+
+    \hypertarget{a-simulate-the-paths}{%
+\subsubsection{a) Simulate the paths}\label{a-simulate-the-paths}}
+
+    
+\prompt{In}{incolor}{10}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+paths = 100
+time = 50
+
+# Change in steps for random walk
+RW = np.random.randint(0, 2, size=(paths, time+1)) * 2 - 1
+RW[:, 0] = 0
+
+# Position of the random walkers
+RW_pos = np.cumsum(RW, axis=1)
+
+# Time
+t = np.arange(0, np.shape(RW_pos)[1], 1)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{11}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+fig, ax3 = plt.subplots(1, 1, figsize=(10, 4))
+
+for i in range(0, paths):
+    plt.plot(t, RW_pos[i, :])
+    i += 1
+
+plt.title(r"Positions for {0} random walkers for a time of {1}".format(paths, time), fontsize=16)    
+plt.xlabel(r"Time ($n$)", fontsize=14)
+plt.ylabel(r"Position ($x$)", fontsize=14)
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{b-plot-the-variance-for-each-time-step}{%
+\subsubsection{b) Plot the variance for each time
+step}\label{b-plot-the-variance-for-each-time-step}}
+
+    
+\prompt{In}{incolor}{12}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Find the variance
+var = np.nanvar(RW_pos, axis=0)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{13}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+fig, ax4 = plt.subplots(1, 1, figsize=(10, 4))
+
+ax4.plot(t, var**0.5)
+
+plt.title(r"Standard deviations at each time step for {0} random walkers for a time of {1}".format(paths, time), fontsize=16)    
+plt.xlabel(r"Time ($n$)", fontsize=14)
+plt.ylabel(r"Standard deviation ($\sigma$)", fontsize=14)
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{c-show-sigma-anr}{%
+\subsubsection{\texorpdfstring{c) Show:
+\(\sigma = an^r\)}{c) Show: \textbackslash{}sigma = an\^{}r}}\label{c-show-sigma-anr}}
+
+    
+\prompt{In}{incolor}{14}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Define function
+# ===============
+def sdev_fit(t, a, r):
+    f = a * t**r
+    return f
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{15}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+# Fit the curve
+# =============
+
+popt, pcov = curve_fit(sdev_fit, t, var**0.5)
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    
+\prompt{In}{incolor}{16}
+\codetrue
+\begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm, colback=cellbackground, colframe=cellborder]
+\begin{minted}[breaklines=True]{ipython3}
+fig, ax5 = plt.subplots(1, 1, figsize=(10, 4))
+
+ax5.plot(t, var**0.5)
+ax5.plot(t, sdev_fit(t, *popt), '-', label=r'Fit ($\sigma = a n^r$): $a$=%5.3f, $r$=%5.3f' % tuple(popt))
+
+plt.title(r"Standard deviations at each time step for {0} random walkers for a time of {1}".format(paths, time), fontsize=16)    
+plt.xlabel(r"Time", fontsize=14)
+plt.ylabel(r"Standard deviation ($\sigma$)", fontsize=14)
+plt.legend()
+plt.show()
+\end{minted}
+\end{tcolorbox}
+\codefalse
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.pdf}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As we can see, the simulation suggests the standard deviation follows:
+
+\[\sigma = an^r\]
+
+\[\text{Where:} 
+  \left\{ \begin{array}{ll}
+      a \approx 0.952 \\
+      r \approx 0.522
+  \end{array} \right.\]
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
